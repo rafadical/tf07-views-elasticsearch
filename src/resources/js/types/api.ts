@@ -65,3 +65,23 @@ export interface AuthCheckResult {
   authenticated: boolean;
   idUser?: number;
 }
+
+// ── Busca de usuários (POST /users/search) ──────────────────
+
+/**
+ * Filtros aceitos pela busca no Elasticsearch.
+ * Campos de texto funcionam como "contém" (LIKE '%valor%'), sem
+ * diferenciar maiúsculas; todos os filtros enviados valem juntos (AND).
+ */
+export interface UserSearchFilters {
+  name?: string;
+  email?: string;
+  job_title?: string;
+  bio?: string;
+  city?: string;
+  state?: string;
+  is_active?: boolean;
+}
+
+/** Campos de texto que podem ser escolhidos no select do modal. */
+export type UserSearchTextField = Exclude<keyof UserSearchFilters, "is_active">;

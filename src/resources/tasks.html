@@ -27,9 +27,67 @@
       <h5>Nova Tarefa</h5>
       <input type="text" id="task-input" class="form-control" placeholder="Digite a tarefa..." />
       <button id="add-task-btn" class="btn btn-primary" type="button">Adicionar</button>
+
+      <hr class="my-2" />
+
+      <button id="assign-task-open-btn" class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
+        data-bs-target="#assign-task-modal">
+        Nova tarefa para outro usuário
+      </button>
+      <div id="assign-task-feedback" class="small" role="status"></div>
     </section>
 
   </main>
+
+  <!-- Modal: criar tarefa e atribuir a outro usuário (busca via POST /users/search) -->
+  <div class="modal fade" id="assign-task-modal" tabindex="-1" aria-labelledby="assign-task-modal-title"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="assign-task-modal-title">Nova tarefa para outro usuário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+
+        <div class="modal-body d-flex flex-column gap-3">
+
+          <div>
+            <label for="assign-task-name" class="form-label">Nome da tarefa</label>
+            <input type="text" id="assign-task-name" class="form-control" placeholder="Digite a tarefa..." />
+          </div>
+
+          <form id="assign-search-form" class="d-flex flex-column gap-2">
+            <label for="assign-search-value" class="form-label m-0">Buscar usuário</label>
+            <div class="input-group">
+              <select id="assign-search-field" class="form-select flex-grow-0 w-auto" aria-label="Campo de busca">
+                <option value="name" selected>Nome</option>
+                <option value="email">E-mail</option>
+                <option value="job_title">Cargo</option>
+                <option value="city">Cidade</option>
+                <option value="state">UF</option>
+                <option value="bio">Bio</option>
+              </select>
+              <input type="text" id="assign-search-value" class="form-control" placeholder="Ex.: curitiba" />
+              <button id="assign-search-btn" class="btn btn-primary" type="submit">Buscar</button>
+            </div>
+          </form>
+
+          <div id="assign-search-results"></div>
+
+          <div id="assign-selected-user" class="alert alert-secondary m-0 py-2">Nenhum usuário escolhido.</div>
+
+          <div id="assign-task-error" class="alert alert-danger m-0 py-2 d-none" role="alert"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" id="assign-task-submit" class="btn btn-primary" disabled>Criar tarefa</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <footer class="bg-primary text-white text-center py-3 mt-auto">
     <div class="small">Frontend 2026.2</div>
